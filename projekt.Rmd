@@ -1,6 +1,6 @@
 ---
 title: "Poročilo pri predmetu Analiza podatkov s programom R"
-author: "Študent FMF"
+author: "Nadja Legan"
 output:
   pdf_document:
     latex_engine: xelatex
@@ -19,7 +19,12 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Izbira teme
 
-Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
+Analizirala bom turizem v Sloveniji. Podatke sem našla na spletni strani Statističnega urada RS. Analizirala bom prihod in prenočitev domačih in tujih turistov, prihode turistov po nastanitvenih objektih in občinah, tuja prenočitva po občinah.
+
+Podatki:
+
+ - http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/01_21644_nastanitev_mesecno/01_21644_nastanitev_mesecno.asp
+ - http://www.stat.si/StatWeb/prikazi-novico?id=5678&idp=24&headerbar=21
 
 ***
 
@@ -29,57 +34,32 @@ Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
 source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
-Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v obliki HTML
-z Wikipedije. Poglejmo si začetka obeh uvoženih razpredelnic.
+Podatke sem uvozila iz Statističnega urada in sicer v obliki csv in HTML.
 
-```{r razpredelnice}
-kable(head(druzine))
-head(obcine)
+V obliki HTML sem uvozila tabelo turistične dodane vrednosti in BDP-ja ter neposreden učinkinek turistične potrošnje za leto 2012 in 2014. Tabelo sem razdelila na dve tabeli z zgornjima temama.
+
+Poglejmo si tabeli:
+```{r tabela33, echo=FALSE}
+kable(tabela3)
+kable(tabela4)
 ```
 
-Slika \ref{fig:histogram} prikazuje porazdelitev števila naselij v občinah.
 
-```{r histogram, echo=FALSE, fig.align='center', fig.cap='Histogram števila naselij v občinah'}
-hist(obcine[,4], main = "Pogostost števila naselij",
-     xlab = "Število naselij", ylab = "Število občin")
+V obliki csv sem uvozila 4 tabele in sicer prihode in prenočitve domačih ter tujih turistov po občinah in vrstah nastanitvenih objektov za januar 2015 in avgust 2015.
+
+Poglejmo si tabeli za Avgust:
+
+```{r tabela44, echo=FALSE}
+kable(head(nastobjAvgust))
+kable(head(obAvgust))
 ```
+
+Za Januar sem izdelala graf, ki predstavlja zasedenost nastanitvenih objektov za domače turiste:
+
+```{r graf1, echo=FALSE}
+ggplot(nastobjJanuar, aes(x = Objekti, y=Prihodi_turistov_domači)) + geom_bar(stat = "identity") + labs(title = "Prihodi domačih turistov po nastanitvenih objektih", x = "Objekti", y= "")
+```
+
 
 ***
 
-# Analiza in vizualizacija podatkov
-
-```{r vizualizacija, echo=FALSE}
-source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
-```
-
-Slika \ref{fig:zemljevid} prikazuje povprečno velikost družine za vsako občino.
-
-```{r zemljevid, echo=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-n <- 100
-barve <- topo.colors(n)[1+(n-1)*(druzine$povprecje-min.povprecje)/(max.povprecje-min.povprecje)]
-plot(zemljevid, col = barve)
-title("Povprečno število otrok v družini")
-```
-
-***
-
-# Napredna analiza podatkov
-
-```{r analiza, echo=FALSE}
-source("analiza/analiza.r", encoding = "UTF-8")
-```
-
-Slika \ref{fig:graf} prikazuje povezavo med številom naselij in površino občine.
-
-```{r graf, echo=FALSE, fig.align='center', fig.cap='Povezava med številom naselij in površino občine'}
-plot(obcine[[1]], obcine[[4]],
-     main = "Število naselij glede na površino občine",
-     xlab = expression("Površina (km"^2 * ")"),
-     ylab = "Št. naselij",
-     col = barve[obcine[[7]]],
-     pch = 18)
-legend("topright", legend = names(barve), col = barve,
-       pch = 18, cex = 0.5, bg = "white")
-```
-
-***

@@ -1,4 +1,9 @@
 library(knitr)
+library(ggplot2)
+require(dplyr)
+require(rvest)
+
+
 
 # Uvozimo funkcije za delo z datotekami XML.
 source("lib/xml.r", encoding = "UTF-8")

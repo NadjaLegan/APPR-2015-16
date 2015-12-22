@@ -42,3 +42,47 @@ uvozi.obJanuar <- function() {
 }
 obJanuar <- uvozi.obJanuar()
 
+#uvoz HTML tabele
+link <- "http://www.stat.si/StatWeb/prikazi-novico?id=5678&idp=24&headerbar=21"
+
+stran <- html_session(link) %>% read_html(encoding = "UTF-8")
+#tabelo 5 bom rzdelila na dve tabeli
+tabele <- stran %>% html_nodes(xpath ="//table[@rules='all']")
+tabela3 <- tabele %>% .[[5]] %>% html_table() 
+tabela4 <- tabele %>% . [[5]] %>% html_table()
+#Turistična dodana vrednost in turistični domači proizvod(BDP),2012,2014
+names(tabela3)<- tabela3[1,]
+tabela3 = tabela3[-1,]
+tabela3 = tabela3[-4,]
+tabela3 = tabela3[-7,]
+tabela3 = tabela3[-7,]
+tabela3 = tabela3[-7,]
+tabela3 = tabela3[-7,]
+tabela3 = tabela3[-7,]
+tabela3 = tabela3[-7,]
+tabela3 = tabela3[-7,]
+
+Encoding(tabela3[[1]]) <- "UTF-8"
+Encoding(tabela4[[1]]) <- "UTF-8"
+#Neposredni in posredni učinki turistične potrošnje 2012,2014
+names(tabela4)<- tabela4[1,]
+tabela4 = tabela4[-1,]
+tabela4 = tabela4[-1,]
+tabela4 = tabela4[-1,]
+tabela4 = tabela4[-1,]
+tabela4 = tabela4[-1,]
+tabela4 = tabela4[-1,]
+tabela4 = tabela4[-1,]
+tabela4 = tabela4[-1,]
+tabela4 = tabela4[-1,]
+tabela4 = tabela4[-1,]
+tabela4 = tabela4[-3,]
+
+
+tabela3[,2:3] <- apply(tabela3[,2:3], 2, . %>% gsub("\\.", "", .) %>%
+                         gsub(",", ".", .) %>%
+                         as.numeric())
+tabela4[,2:3] <- apply(tabela4[,2:3], 2, . %>% gsub("\\.", "", .) %>%
+                         gsub(",", ".", .) %>%
+                         as.numeric())
+

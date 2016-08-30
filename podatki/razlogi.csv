@@ -1,0 +1,280 @@
+"Tuji turisti po: MESEC, GLAVNI RAZLOG, DRŽAVA PREBIVALIŠÈA , MERITVE"
+
+" ";" ";" ";"Število turistov"
+"Glavna sezona"
+" ";"Poèitnice, sprostitev, rekreacija"
+" ";" ";"Avstrija";35106
+" ";" ";"Italija";79595
+" ";" ";"Nemèija";51984
+" ";" ";"Druge evropske države";233323
+" ";" ";"Neevropske države";71046
+" ";"Obisk sorodnikov ali prijateljev"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";3223
+" ";" ";"Nemèija";3742
+" ";" ";"Druge evropske države";9564
+" ";" ";"Neevropske države";N
+" ";"Skrb za zdravje, dobro poèutje"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Izobraževanje"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Kultura"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Religija/romanje"
+" ";" ";"Avstrija";-
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";-
+" ";" ";"Neevropske države";-
+" ";"Nakupovanje"
+" ";" ";"Avstrija";-
+" ";" ";"Italija";-
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";-
+" ";"Poslovni sestanki"
+" ";" ";"Avstrija";3671
+" ";" ";"Italija";5054
+" ";" ";"Nemèija";7635
+" ";" ";"Druge evropske države";19909
+" ";" ";"Neevropske države";5956
+" ";"Konference, seminarji, sejmi"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";5314
+" ";" ";"Neevropske države";N
+" ";"Tranzit"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";5251
+" ";" ";"Druge evropske države";14285
+" ";" ";"Neevropske države";N
+" ";"Drugi razlogi"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+"April"
+" ";"Poèitnice, sprostitev, rekreacija"
+" ";" ";"Avstrija";14465
+" ";" ";"Italija";31065
+" ";" ";"Nemèija";6426
+" ";" ";"Druge evropske države";23258
+" ";" ";"Neevropske države";16967
+" ";"Obisk sorodnikov ali prijateljev"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Skrb za zdravje, dobro poèutje"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Izobraževanje"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Kultura"
+" ";" ";"Avstrija";-
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Religija/romanje"
+" ";" ";"Avstrija";-
+" ";" ";"Italija";N
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";-
+" ";"Nakupovanje"
+" ";" ";"Avstrija";-
+" ";" ";"Italija";-
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";-
+" ";" ";"Neevropske države";-
+" ";"Poslovni sestanki"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";13346
+" ";" ";"Neevropske države";N
+" ";"Konference, seminarji, sejmi"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";5176
+" ";" ";"Neevropske države";-
+" ";"Tranzit"
+" ";" ";"Avstrija";-
+" ";" ";"Italija";N
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";-
+" ";"Drugi razlogi"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";-
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+"Maj"
+" ";"Poèitnice, sprostitev, rekreacija"
+" ";" ";"Avstrija";15553
+" ";" ";"Italija";24251
+" ";" ";"Nemèija";9791
+" ";" ";"Druge evropske države";32985
+" ";" ";"Neevropske države";26446
+" ";"Obisk sorodnikov ali prijateljev"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Skrb za zdravje, dobro poèutje"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";3789
+" ";" ";"Neevropske države";-
+" ";"Izobraževanje"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Kultura"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Religija/romanje"
+" ";" ";"Avstrija";-
+" ";" ";"Italija";-
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";-
+" ";" ";"Neevropske države";-
+" ";"Nakupovanje"
+" ";" ";"Avstrija";-
+" ";" ";"Italija";-
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";-
+" ";"Poslovni sestanki"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";11492
+" ";" ";"Neevropske države";N
+" ";"Konference, seminarji, sejmi"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";9264
+" ";" ";"Neevropske države";N
+" ";"Tranzit"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";-
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Drugi razlogi"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";-
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+"September"
+" ";"Poèitnice, sprostitev, rekreacija"
+" ";" ";"Avstrija";19283
+" ";" ";"Italija";21713
+" ";" ";"Nemèija";11563
+" ";" ";"Druge evropske države";43806
+" ";" ";"Neevropske države";39897
+" ";"Obisk sorodnikov ali prijateljev"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Skrb za zdravje, dobro poèutje"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";-
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Izobraževanje"
+" ";" ";"Avstrija";-
+" ";" ";"Italija";-
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";-
+" ";"Kultura"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";-
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Religija/romanje"
+" ";" ";"Avstrija";-
+" ";" ";"Italija";-
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";-
+" ";"Nakupovanje"
+" ";" ";"Avstrija";-
+" ";" ";"Italija";-
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";-
+" ";" ";"Neevropske države";-
+" ";"Poslovni sestanki"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";3842
+" ";" ";"Druge evropske države";8978
+" ";" ";"Neevropske države";N
+" ";"Konference, seminarji, sejmi"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";7585
+" ";" ";"Neevropske države";N
+" ";"Tranzit"
+" ";" ";"Avstrija";N
+" ";" ";"Italija";N
+" ";" ";"Nemèija";N
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+" ";"Drugi razlogi"
+" ";" ";"Avstrija";-
+" ";" ";"Italija";-
+" ";" ";"Nemèija";-
+" ";" ";"Druge evropske države";N
+" ";" ";"Neevropske države";N
+
+"Vir: Statistièni urad Republike Slovenije. "
+"Nekateri seštevki se zaradi zaokroževanja ne ujemajo."
+
+"Povezane vsebine:  "
+"- (seznam "
+"HREF=http://www.stat.si/StatWeb/Common/PrikaziDokument.ashx?IdDatotek-"
+"e=7802 target=_blank) Metodološka pojasnila"
+

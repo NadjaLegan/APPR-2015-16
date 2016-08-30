@@ -57,7 +57,7 @@ kable(head(obAvgust))
 Za Januar sem izdelala graf, ki predstavlja zasedenost nastanitvenih objektov za domače turiste:
 
 ```{r graf1, echo=FALSE}
-ggplot(nastobjJanuar, aes(x = Objekti, y=Prihodi_turistov_domači)) + geom_bar(stat = "identity") + labs(title = "Prihodi domačih turistov po nastanitvenih objektih", x = "Objekti", y= "")
+ggplot(nastobjJanuar, aes(x = Objekti, y=Prihodi_turistov_domači)) +  geom_bar(stat = "identity") + labs(title = "Prihodi domačih turistov po nastanitvenih objektih", x = "Objekti", y= "") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) 
 ```
 
 

@@ -38,7 +38,7 @@ razlog_prihoda$Število <- razlog_prihoda$Število %>% as.character() %>% as.num
 
 stolpci2 = c("Regija","Nastanitveni objekt", "Domači/Tuji", "Leto", "Število")
 prenocitve <- read.csv2(file="podatki/prenocitve.csv", col.names=stolpci2, encoding ="windows-1250",
-                            skip=3, nrow=(642-4))
+                            skip=3, nrow=(700-4))
 
 
 #Uredim prazne prostore z NA ter jih zapolnim z vrednostmi, ki jim pripadajo:
@@ -110,6 +110,7 @@ names(prihodkiEU) <- c("Država", "Prihodek v letu 2014")
 #Izbrišem vejice v številih in jih spremenim iz character -> šrevilo
 
 prihodkiEU[2] <- apply(prihodkiEU[2], 2, . %>% gsub("\\,", "", .)) %>% as.numeric()
+prihodkiEU[,1] <- as.factor(prihodkiEU[,1])
 
 
 
@@ -151,6 +152,18 @@ GRAF2 <- ggplot(razlog_prihoda %>% filter(Število > 0) %>% group_by(Razlog)
   guides(fill=guide_legend(ncol=2, title=NULL)) + 
   theme(legend.position = "bottom")+
   labs(title ="Število turistov glede na razlog prihoda", x="", y="")
+
+
+GRAF3 <- ggplot(data = prenocitve %>%
+                  group_by(Nastanitveni.objekt,Domači.Tuji) %>%
+                  summarise(Število = sum(Število)), 
+                aes(x= Nastanitveni.objekt, y=Število, fill=Domači.Tuji))+
+  geom_bar(stat = "identity", position = "dodge")+
+  scale_y_continuous(labels=function(n){format(n, scientific = FALSE)})+
+  theme_minimal() + 
+  guides(fill=guide_legend(ncol=1, title=NULL)) + 
+  labs(title ="Število turistov glede na nastanitvene objekte", x="Nastanitveni objekt")
+
 
 
 

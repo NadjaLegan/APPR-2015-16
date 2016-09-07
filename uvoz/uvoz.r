@@ -22,9 +22,9 @@ razlog_prihoda[[i]] <- na.locf(razlog_prihoda[[i]], na.rm = FALSE)
 #Zbrišem odvečne vrstice(vse, ki so NA v "St.Prebivalcev"):
 razlog_prihoda <- razlog_prihoda[!is.na(razlog_prihoda$Število),]
 
-#Spremenim vsa števila, ki so N ali - v 0 
-razlog_prihoda[[4]] <- razlog_prihoda[[4]] %>% gsub("N","0",.)
-razlog_prihoda[[4]] <- razlog_prihoda[[4]] %>% gsub("-","0",.)
+#Spremenim vsa števila, ki so N ali - v NA 
+razlog_prihoda[[4]][razlog_prihoda[4] == "N"] <- NA
+razlog_prihoda[[4]][razlog_prihoda[4] == "-"] <- NA
 
 #Stolpec Število spremenim iz factor -> število
 
@@ -54,9 +54,9 @@ for (i in names(prenocitve[-5])) {
 #Zbrišem odvečne vrstice(vse, ki so NA v "St.Prebivalcev"):
 prenocitve <- prenocitve[!is.na(prenocitve$Število),]
 
-#Spremenim vsa števila, ki so z ali - v 0 
-prenocitve[[5]] <- prenocitve[[5]] %>% gsub("z","0",.)
-prenocitve[[5]] <- prenocitve[[5]] %>% gsub("-","0",.)
+#Spremenim vsa števila, ki so z ali - v NA 
+prenocitve[[i]][prenocitve[i] == "z"] <- NA
+prenocitve[[i]][prenocitve[i] == "-"] <- NA
 
 #Stolpec Število spremenim iz factor -> število in Leto iz število -> faktor
 
@@ -64,7 +64,13 @@ prenocitve$Število <- prenocitve$Število %>% as.character() %>% as.numeric()
 prenocitve$Leto <- as.factor(prenocitve$Leto)
 
 
+##Spremenim imena regij v moji tabeli, da se skladajo z zemljevidom
 
+prenocitve$Regija <- as.character(prenocitve$Regija)
+prenocitve$Regija <- prenocitve$Regija %>% gsub("Posavska","Spodnjeposavska",.) 
+prenocitve$Regija <- prenocitve$Regija %>% gsub("Primorsko-notranjska","Notranjsko-kraška",.)
+prenocitve$Regija <- prenocitve$Regija %>% gsub("Jugovzhodna","Jugovzhodna Slovenija",.)
+prenocitve$Regija <- as.factor(prenocitve$Regija)
 
 
 
@@ -88,9 +94,9 @@ for (i in names(izdatki[-4])) {
 #Zbrišem odvečne vrstice(vse, ki so NA v "St.Prebivalcev"):
 izdatki <- izdatki[!is.na(izdatki$Izdatek),]
 
-#Spremenim vsa števila, ki so N in - v 0 
-izdatki[[4]] <- izdatki[[4]] %>% gsub("N","0",.)
-izdatki[[4]] <- izdatki[[4]] %>% gsub("-","0",.)
+#Spremenim vsa števila, ki so N in - v NA 
+izdatki[[i]][izdatki[i] == "N"] <- NA
+izdatki[[i]][izdatki[i] == "-"] <- NA
 
 #V zadnjem stolpcu vzamem samo števila brez črk
 izdatki[[4]] <- as.character(izdatki[[4]])
@@ -110,14 +116,21 @@ prihodkiEU <- tabele %>% html_table() %>% data.frame()
 prihodkiEU <- prihodkiEU[c(2,3)]
 names(prihodkiEU) <- c("Država", "Prihodek v letu 2014")
 
-#Izbrišem vejice v številih in jih spremenim iz character -> šrevilo
+#Izbrišem vejice v številih in jih spremenim iz character -> število
 
 prihodkiEU[2] <- apply(prihodkiEU[2], 2, . %>% gsub("\\,", "", .)) %>% as.numeric()
 prihodkiEU[,1] <- as.factor(prihodkiEU[,1])
 
 
+##Spremenim imena držav v moji tabeli, da se skladajo z zemljevidom in izbrišem tiste, ki niso v zemljevidu
 
+prihodkiEU$Država <- as.character(prihodkiEU$Država)
+prihodkiEU$Država <- prihodkiEU$Država %>% gsub("Bosnia and Herzegovina","Bosnia and Herz.",.) 
+prihodkiEU$Država <- prihodkiEU$Država %>% gsub("Czech Republic","Czech Rep.",.)
+prihodkiEU$Država <- prihodkiEU$Država %>% gsub("Slovak Republic","Slovakia",.)
+prihodkiEU$Država <- as.factor(prihodkiEU$Država)
 
+prihodkiEU <- filter(prihodkiEU, ! Država %in% c("Andorra", "Liechtenstein", "Malta", "Monaco", "San Marino"))
 
 
 
@@ -126,7 +139,8 @@ prihodkiEU[,1] <- as.factor(prihodkiEU[,1])
 
 ####GRAFI#######
 
-GRAF1 <- ggplot(razlog_prihoda %>% group_by(Čas, Država) %>% summarise(Število = sum(Število)),
+GRAF1 <- ggplot(razlog_prihoda %>% group_by(Čas, Država) %>% 
+                  summarise(Število = sum(Število, na.rm=TRUE)),
                 aes(x=Čas, y=Število, fill=Država)) + 
   geom_bar(stat = "identity",position="dodge")+
   scale_y_continuous(labels=function(n){format(n, scientific = FALSE)}) +
@@ -146,7 +160,7 @@ blank_theme <- theme_minimal()+
   )
 
 GRAF2 <- ggplot(razlog_prihoda %>% filter(Število > 0) %>% group_by(Razlog) 
-                %>% summarise(Število = sum(Število)),
+                %>% summarise(Število = sum(Število, na.rm=TRUE)),
                 aes(x="", y=Število, fill=Razlog)) + 
   geom_bar(width = 1, stat = "identity") +
   coord_polar(theta = "y") + 
@@ -159,7 +173,7 @@ GRAF2 <- ggplot(razlog_prihoda %>% filter(Število > 0) %>% group_by(Razlog)
 
 GRAF3 <- ggplot(data = prenocitve %>%
                   group_by(Nastanitveni.objekt,Domači.Tuji) %>%
-                  summarise(Število = sum(Število)), 
+                  summarise(Število = sum(Število, na.rm=TRUE)), 
                 aes(x= Nastanitveni.objekt, y=Število, fill=Domači.Tuji))+
   geom_bar(stat = "identity", position = "dodge")+
   scale_y_continuous(labels=function(n){format(n, scientific = FALSE)})+

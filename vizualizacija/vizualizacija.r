@@ -21,16 +21,7 @@ pretvori.zemljevid <- function(zemljevid, pogoj = TRUE) {
 
 SLO <- pretvori.zemljevid(zemljevid)
 
-##Spremenim imena regij v moji tabeli, da se skladajo z zemljevidom
 
-prenocitve$Regija <- as.character(prenocitve$Regija)
-prenocitve$Regija <- prenocitve$Regija %>% gsub("Posavska","Spodnjeposavska",.) 
-prenocitve$Regija <- prenocitve$Regija %>% gsub("Primorsko-notranjska","Notranjsko-kraška",.)
-prenocitve$Regija <- prenocitve$Regija %>% gsub("Jugovzhodna","Jugovzhodna Slovenija",.)
-prenocitve$Regija <- as.factor(prenocitve$Regija)
-
-
-##Naredim zemljevid, kjer prikažem stopnjo umrljivosti (zelena-nizka, rdeča-visoka)
 
 ZEM_SLO <- ggplot() + geom_polygon(data = prenocitve %>% 
                                      filter(Leto == 2015) %>% group_by(Regija) %>%
@@ -61,14 +52,25 @@ ZEM_SLO <- ZEM_SLO +
 zemljevid2 <- uvozi.zemljevid("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries.zip",
                         "ne_110m_admin_0_countries") 
 
-EU <- pretvori.zemljevid(zemljevid2, zemljevid2$continent == "Europe")
+Drzave <- levels(prihodkiEU$Država)
+EU <- pretvori.zemljevid(zemljevid2)
+NOV <- EU %>% filter(name %in% Drzave)
 
 
-
-ZEM_EU <- ggplot() + geom_polygon(data = prihodkiEU %>% 
-                                     filter(Leto == 2015) %>%
-                                     right_join(EU, by = c("Država" = "NAME_1")),
-                                   aes(x = long, y = lat, group = group, fill = Število), 
+ZEM_EU <- ggplot() + geom_polygon(data = prihodkiEU %>%
+                          right_join(NOV, by = c("Država" = "name")),
+                                   aes(x = long, y = lat, group = group, fill = `Prihodek v letu 2014`), 
                                    color = "white") +
-  guides(fill = guide_colorbar(title = "Število turistov")) +
-  ggtitle("Število prenočitev po regijah v letu 2015")
+  guides(fill = guide_colorbar(title = "Višina prihodkov")) +
+  ggtitle("Prihodki od turizma v nekaterih evropskih državah")+
+  xlim(-25, 45) + ylim(35, 75)
+
+#Na zemljevid dodamo ime Slovenija
+
+ZEM_EU <- ZEM_EU +
+  geom_text(data = NOV %>% filter(name == "Slovenia") %>% group_by(id, name) %>% summarise(x = mean(long), y = mean(lat)),
+            aes(x = x, y = y, label = name), color = "orange", size = 3.5)
+
+ZEM_EU <- ZEM_EU +
+  labs(x="", y="")+
+  theme_minimal()

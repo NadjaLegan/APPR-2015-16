@@ -1,5 +1,5 @@
 library(knitr)
-library(ggplot2)
+require(ggplot2)
 require(dplyr)
 require(rvest)
 require(gsubfn)

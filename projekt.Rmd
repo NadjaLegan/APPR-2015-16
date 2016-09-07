@@ -19,12 +19,15 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Izbira teme
 
-Analizirala bom turizem v Sloveniji. Podatke sem našla na spletni strani Statističnega urada RS. Analizirala bom prihod in prenočitev domačih in tujih turistov, prihode turistov po nastanitvenih objektih in občinah, tuja prenočitva po občinah.
+Analizirala bom turizem v Sloveniji. Podatke sem našla na spletni strani Statističnega urada RS. Analizirala bom prenočitve domačih in tujih turistov, njihove izdatke ter razlog prihoda.
 
-Podatki:
+Cilj moje analize bo ugotoviti, kater razlog prihoda je najbolj pogost...
 
- - http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/01_21644_nastanitev_mesecno/01_21644_nastanitev_mesecno.asp
- - http://www.stat.si/StatWeb/prikazi-novico?id=5678&idp=24&headerbar=21
+Podatki iz spletne strani Statistični urad:
+
+ - http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/10_tuji_turisti/20_21767_tuji_povp_izdatki/20_21767_tuji_povp_izdatki.asp
+
+ - http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/02_21645_nastanitev_letno/02_21645_nastanitev_letno.asp
 
 ***
 

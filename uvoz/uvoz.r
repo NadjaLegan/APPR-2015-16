@@ -68,11 +68,11 @@ prenocitve$Leto <- as.factor(prenocitve$Leto)
 
 
 
-##Uvozim tabelo, ki prikazuje mnenja o izdatkih po: ČASU , DRŽAVA TURISTA, MNENJE, ŠTEVILO
+##Uvozim tabelo, ki prikazuje povprecne izdatke po: ČASU , DRŽAVA TURISTA, RAZLOG PRIHODA
 
-stolpci3 = c("Čas","Država","Mnenje", "Število")
-izdatki <- read.csv2(file="podatki/mnenja.izdatki.csv", col.names = stolpci3, fileEncoding ="windows-1250",
-                        skip=1, nrow=(270-2))
+stolpci3 = c("Čas","Razlog","Država", "Izdatek")
+izdatki <- read.csv2(file="podatki/izdatki.csv", col.names = stolpci3, fileEncoding ="windows-1250",
+                     header = FALSE, skip=1, nrow=(270-2))
 
 
 #Uredim prazne prostore z NA ter jih zapolnim z vrednostmi, ki jim pripadajo:
@@ -86,14 +86,17 @@ for (i in names(izdatki[-4])) {
 }
 
 #Zbrišem odvečne vrstice(vse, ki so NA v "St.Prebivalcev"):
-izdatki <- izdatki[!is.na(izdatki$Število),]
+izdatki <- izdatki[!is.na(izdatki$Izdatek),]
 
-#Spremenim vsa števila, ki so N v 0 
+#Spremenim vsa števila, ki so N in - v 0 
 izdatki[[4]] <- izdatki[[4]] %>% gsub("N","0",.)
+izdatki[[4]] <- izdatki[[4]] %>% gsub("-","0",.)
 
-#Stolpec Število spremenim iz factor -> število in Leto iz število -> faktor
+#V zadnjem stolpcu vzamem samo števila brez črk
+izdatki[[4]] <- as.character(izdatki[[4]])
+izdatki[[4]] <- izdatki[[4]] %>% gsub("\\M","",.) %>% as.numeric()
 
-izdatki$Število <- izdatki$Število %>% as.character() %>% as.numeric()
+
 
 
 

@@ -60,15 +60,8 @@ ZEM_SLO <- ZEM_SLO +
 
 zemljevid2 <- uvozi.zemljevid("http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries.zip",
                         "ne_110m_admin_0_countries") 
--m1 <- match(zemljevid2$adm0_a3, prihodkiEU$Država)
-zemljevid2$Prihodki <- prihodkiEU$`Prihodek v letu 2014`[m1]
 
 EU <- pretvori.zemljevid(zemljevid2, zemljevid2$continent == "Europe")
-
-
-
-
-m1 <- match(zemljevid2$adm0_a3, prihodkiEU$Država)
 
 
 

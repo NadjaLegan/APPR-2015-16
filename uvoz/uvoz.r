@@ -5,7 +5,7 @@ source("lib/libraries.r", encoding = "UTF-8")
 ##Uvozim tabelo, ki prikazuje število turistov, glede na čas prihoda, razlog prihoda ter državo iz katere prihajajo
 
 stolpci1 = c("Čas","Razlog","Država","Število")
-razlog_prihoda <- read.csv2(file="podatki/razlogi.csv", col.names=stolpci1, encoding ="windows-1250",
+razlog_prihoda <- read.csv2(file="podatki/razlogi.csv", col.names=stolpci1, fileEncoding ="windows-1250",
                             skip=2, nrow=(271-3))
 
 
@@ -37,7 +37,7 @@ razlog_prihoda$Število <- razlog_prihoda$Število %>% as.character() %>% as.num
 ##Uvozim tabelo, ki prikazuje število turistov, glede na čas prihoda, razlog prihoda ter državo iz katere prihajajo
 
 stolpci2 = c("Regija","Nastanitveni objekt", "Domači/Tuji", "Leto", "Število")
-prenocitve <- read.csv2(file="podatki/prenocitve.csv", col.names=stolpci2, encoding ="windows-1250",
+prenocitve <- read.csv2(file="podatki/prenocitve.csv", col.names=stolpci2, fileEncoding ="windows-1250",
                             skip=3, nrow=(700-4))
 
 
@@ -71,7 +71,7 @@ prenocitve$Leto <- as.factor(prenocitve$Leto)
 ##Uvozim tabelo, ki prikazuje mnenja o izdatkih po: ČASU , DRŽAVA TURISTA, MNENJE, ŠTEVILO
 
 stolpci3 = c("Čas","Država","Mnenje", "Število")
-izdatki <- read.csv2(file="podatki/mnenja.izdatki.csv", col.names = stolpci3, encoding ="windows-1250",
+izdatki <- read.csv2(file="podatki/mnenja.izdatki.csv", col.names = stolpci3, fileEncoding ="windows-1250",
                         skip=1, nrow=(270-2))
 
 

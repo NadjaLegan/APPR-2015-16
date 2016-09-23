@@ -25,7 +25,7 @@ SLO <- pretvori.zemljevid(zemljevid)
 
 ZEM_SLO <- ggplot() + geom_polygon(data = prenocitve %>% 
                                      filter(Leto == 2015) %>% group_by(Regija) %>%
-                                     summarise(Število = sum(Število)) %>% 
+                                     summarise(Število = sum(Število, na.rm = TRUE)) %>% 
                                      right_join(SLO, by = c("Regija" = "NAME_1")),
                                    aes(x = long, y = lat, group = group, fill = Število), 
                                    color = "white") +
@@ -65,11 +65,6 @@ ZEM_EU <- ggplot() + geom_polygon(data = prihodkiEU %>%
   ggtitle("Prihodki od turizma v nekaterih evropskih državah")+
   xlim(-25, 45) + ylim(35, 75)
 
-#Na zemljevid dodamo ime Slovenija
-
-ZEM_EU <- ZEM_EU +
-  geom_text(data = NOV %>% filter(name == "Slovenia") %>% group_by(id, name) %>% summarise(x = mean(long), y = mean(lat)),
-            aes(x = x, y = y, label = name), color = "orange", size = 3.5)
 
 ZEM_EU <- ZEM_EU +
   labs(x="", y="")+

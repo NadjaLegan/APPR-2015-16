@@ -2,7 +2,9 @@
 
 ##Grupiranje podatkov
 
-podatki1 <- data.frame(prenocitve %>% group_by(Regija) %>% summarise(Število=sum(Število)))
+podatki1 <- data.frame(prenocitve %>% 
+                         group_by(Regija) %>% 
+                         summarise(Število=sum(Število, na.rm = TRUE)))
 rownames(podatki1) <-podatki1$Regija
 podatki1 <- podatki1[-1]
 
@@ -33,35 +35,26 @@ ZEM_SKUPINE <- ZEM_SKUPINE +
   theme_minimal()
 
 
+#Poiščem še centeroide
+razdalje <- apply(k$centers, 1, function(y) apply(a.norm, 1, function(x) sum((x-y)^2)))
+min.razdalje <- apply(razdalje, 2, min)
+manj.razdalje <- apply(razdalje, 1, function(x) x == min.razdalje)
+najblizje <- apply(manj.razdalje[,apply(manj.razdalje, 2, any)], 2, which)
+centeroidi <- names(najblizje)[order(najblizje)]
 
 
-# združim tabeli izdatki in prenocitve
+
+### ŠTEVILO TURISTOV PO LETIH
+
+podatki2 <- data.frame(prenocitve %>% 
+                         group_by(Leto) %>% 
+                         summarise(Število = sum(Število, na.rm = TRUE)))
+podatki2$Leto <- podatki2$Leto %>% as.character() %>% as.numeric()
 
 
-TABELA1 <- inner_join(izdatki, razlog_prihoda)
+GRAF4 <- ggplot(podatki2, aes(x=Leto,y=Število))+
+  geom_point(stat = "identity")+
+  labs(title ="Število prenočitev glede na leto")+
+  theme_bw() + geom_smooth()
 
-ggplot(TABELA1, aes(x = Število, y = Izdatek, col=Država)) + geom_point()
-
-#Iz grafa je opazno, da je nekje odstopanje po številu prenočitev
-#in izdatki niso tako visoki, nekje pa je odstopanje po izdatkih
-#ki so zelo visoki, je pa zelo malo prenočitev
-#uporabim filter, da najdem kje je to
-
-filter(TABELA1, Število == max(Število, na.rm=TRUE))
-#Glavna sezona -- Počitnice, sprostitev, rekreacija -- Druge evropske države
-filter(TABELA1, Izdatek == max(Izdatek, na.rm=TRUE))
-#Maj -- Skrb za zdravje, dobro počutje -- Druge evropske države
-
-TABELA2 <- TABELA1 %>% group_by(Država) %>% 
-  summarise(Število = sum(Število,na.rm=TRUE), Izdatek=sum(Izdatek,na.rm=TRUE))
-ggplot(TABELA2, aes(x=Število,y=Izdatek)) + geom_point() + geom_smooth()
-
-
-AU <- filter(TABELA1, Država == "Avstrija") %>% group_by(Čas) %>% 
-  summarise(Število = sum(Število,na.rm=TRUE), Izdatek=sum(Izdatek,na.rm=TRUE))
-ggplot(AU, aes(x=Število,y=Izdatek,col=Čas)) + geom_point()
-
-NEM <- filter(TABELA1, Država == "Nemčija") %>% group_by(Čas) %>% 
-  summarise(Število = sum(Število,na.rm=TRUE), Izdatek=sum(Izdatek,na.rm=TRUE))
-ggplot(NEM, aes(x=Število,y=Izdatek,col=Čas)) + geom_point()
 

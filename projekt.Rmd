@@ -19,17 +19,22 @@ source("lib/libraries.r", encoding = "UTF-8")
 
 # Izbira teme
 
-Analizirala bom turizem v Sloveniji. Podatke sem našla na spletni strani Statističnega urada RS. Analizirala bom prenočitve domačih in tujih turistov, njihove izdatke ter razlog prihoda.
+Za projekt pri predmetu Analiza podatkov s programom R sem si izbrala temo Turizem v Sloveniji. Analizirala bom število turistov, glede na razloge prihoda, državo iz katere prihajajo, čas prihoda ter kateri nastanitveni objekti so najbolj priljubljeni. 
 
-Cilj moje analize bo ugotoviti, kater razlog prihoda je najbolj pogost...
+Cilj moje analize bo ugotoviti, ali je število turistov v Sloveniji veliko, ali z leti narašča ali pada, ter kam najraje zahajajo.
 
-Podatki iz spletne strani Statistični urad:
+Podatke sem dobila na spletni strani statističnega urada ter na spletni strani inexmundi.com.
 
- - http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/10_tuji_turisti/20_21767_tuji_povp_izdatki/20_21767_tuji_povp_izdatki.asp
+Povezave do tabel:
 
- - http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/02_21645_nastanitev_letno/02_21645_nastanitev_letno.asp
 
-***
+* http://www.indexmundi.com/facts/indicators/ST.INT.ARVL/rankings/europe
+
+* http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/10_tuji_turisti/20_21767_tuji_povp_izdatki/20_21767_tuji_povp_izdatki.asp
+
+* http://pxweb.stat.si/pxweb/Database/Ekonomsko/21_gostinstvo_turizem/02_21645_nastanitev_letno/02_21645_nastanitev_letno.asp
+
+\pagebreak
 
 # Obdelava, uvoz in čiščenje podatkov
 
@@ -37,32 +42,172 @@ Podatki iz spletne strani Statistični urad:
 source("uvoz/uvoz.r", encoding = "UTF-8")
 ```
 
-Podatke sem uvozila iz Statističnega urada in sicer v obliki csv in HTML.
+Uvozila sem podatke v obliki csv in HTML.
 
-V obliki HTML sem uvozila tabelo turistične dodane vrednosti in BDP-ja ter neposreden učinkinek turistične potrošnje za leto 2012 in 2014. Tabelo sem razdelila na dve tabeli z zgornjima temama.
+Podatke v obliki csv sem uvozila iz Statističnega urada in sicer sem uvozila 3 tabele. Pri vseh tabelah sem morala najprej prazna okenca zapolniti z `NA` ter jih potem s pomočjo knjižnjice `ZOO` in funkcije `na.locf` zapolniti s pravimi vrednostmi. Na koncu sem izbrisala vse vrstice, ki so imele vrednost `NA` v zadnjem stolpcu.
 
-Poglejmo si tabeli:
-```{r tabela33, echo=FALSE}
-kable(tabela3)
-kable(tabela4)
+##Prva tabela csv
+
+Prva tabela, ki sem jo uvozila prikazuje podatke o številu turistov, ki so prišli v Slovenijo glede na čas, razlog prihoda ter glede na to iz katere države so prišli.
+
+Čas prihoda je ločen na: April, Glavna sezona (poletni meseci), Maj, September.
+
+Možni razlogi za prihod so: 
+
+* Izobraževanje
+* Konference, seminarji, sejmi
+* Kultura
+* Nakupovanje
+* Obisk sorodnikov ali prijateljev
+* Počitnice, sprostitev, rekreacija
+* Poslovni sestanki
+* Religija/romanje
+* Skrb za zdravje, dobro počutje
+* Tranzit
+* Drugi razlogi
+
+Države pa so: Avstrija, Nemčija, Italija, Druge evropske države, Neevropske države.
+
+Torej ima prva tabela 4 stolpce, s spremenljivkami:
+
+* Čas: faktor
+* Razlog: faktor
+* Država: faktor
+* Meritev: število turistov
+
+Prvih nekaj vrstic tabele:
+
+```{r tabela1, echo=FALSE}
+kable(head(razlog_prihoda))
 ```
 
+##Druga tabela csv
 
-V obliki csv sem uvozila 4 tabele in sicer prihode in prenočitve domačih ter tujih turistov po občinah in vrstah nastanitvenih objektov za januar 2015 in avgust 2015.
+Druga tabela prikazuje podatke o številu prenočitev turistov, glede na regijo prenočitve, leto, nastanitveni objekt in glede na to ali je turist iz Slovenije ali je iz tujine.
 
-Poglejmo si tabeli za Avgust:
+Za regije sem se odločila, da bom gledala statistične regije. Leta sem vzela od 2008 do 2015.
 
-```{r tabela44, echo=FALSE}
-kable(head(nastobjAvgust))
-kable(head(obAvgust))
+Nastanitveni objekti pa so razdeljeni na 3 skupine:
+
+* Hoteli in podobni nastanitveni objekti
+* Kampi
+* Ostali nastanitveni objekti
+
+Tako sem dobila tabelo s stolpci:
+
+* Regija: faktor
+* Nastanitveni objekt: faktor
+* Turist (domači/tuji): faktor
+* Leto: faktor
+* Meritev: število prenočitev
+
+Glava tabele:
+
+```{r tabela2, echo=FALSE}
+kable(head(prenocitve))
 ```
 
-Za Januar sem izdelala graf, ki predstavlja zasedenost nastanitvenih objektov za domače turiste:
+##Tretja tabela csv
 
-```{r graf1, echo=FALSE}
-ggplot(nastobjJanuar, aes(x = Objekti, y=Prihodi_turistov_domači)) +  geom_bar(stat = "identity") + labs(title = "Prihodi domačih turistov po nastanitvenih objektih", x = "Objekti", y= "") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) 
+Še zadnja tabela v obliki csv pa prikazuje podatke o povprečnih izdatkih turistov, glede na čas, razlog prihoda ter državo iz katere prihajajo. Čas, države ter razlogi prihoda so enaki kot v prvi tabeli.
+
+Začetek tabele:
+
+```{r tabela3, echo=FALSE}
+kable(head(izdatki))
 ```
 
+##Tabela HTML
 
-***
+V obliki HTML sem uvozila tabelo, ki prikazuje prihodke od turizma v evropskih državah. To tabelo sem uvozila z namenom, da vidim koliko ima prihodkov Slovenija glede na druge evropske države. Izbrala sem si leto 2014, saj so bili to najnovejši podatki, ki so bili na voljo.
 
+Po uvozu tabele sem morala odstraniti vejice, ki so bile pri številih, da sem lahko števila spremenila v številsko spremenljivko.
+
+Poglejmo si začetek tabele:
+```{r tabelaHTML, echo=FALSE}
+kable(head(prihodkiEU))
+```
+
+\pagebreak
+
+#Vizualizacija
+
+##Grafi
+
+Najprej sem se odločila, da grafično prikažem podatke o številu turistov glede na čas in državo iz katere prihajajo.
+
+```{r GRAF1, echo=FALSE}
+plot(GRAF1)
+```
+
+Kot vidimo na grafu, je največ turistov v Sloveniji v času glavne sezone, kar sem pričakovala. Presenetil pa me je podatek, da največ turistov pride iz drugih evropskih držav in ne iz Avstrije, Italije in Nemčije. Glavni razlog za to pa je najverjetneje to, da je teh držav veliko, zato je mogoče tudi število poslednično večje. V glavni sezoni je najmanj turistov iz Avstrije, v drugih terminih pa je najmanj Nemcev.
+
+\pagebreak
+
+Za drug graf sem izbrala podatke, ki prikazujejo število turistov glede na razlog prihoda in jih prikazala v tortnem diagramu. 
+
+```{r GRAF2, echo=FALSE}
+plot(GRAF2)
+```
+
+Iz tortnega diagrama lahko razberemo, da so najbolj pogosti razlogi za prihod turistov v našo deželo počitnice, sprostitev in rekreacija. Ta podatek je bil pričakovan, saj je naša država bogata z gorovjem, ima obalo ter obilico drugih zanimivosti ter priložnosti za počitek in rekreacijo. Najmanj pogost razlog za prihod turistov pa je obisk sorodnikov in prijateljev.
+
+\pagebreak
+
+V tretjem grafu sem prikazala število turistov glede na nastanitveni objekt ter turiste razdelila na domače in tuje. 
+
+```{r GRAF3, echo=FALSE}
+plot(GRAF3)
+```
+
+Opazimo, da hoteli in podobni nastanitveni objekti prevladujejo ne glede na to ali je turist domač ali tuj, nasplošno pa je veliko več tujih turistov. Manj pogosto je, da turisti za nastanitev izberejo kampe, najverjetneje zato, ker je ponudba hotelov večja kot kampov.
+
+\pagebreak
+
+##Zemljevidi
+
+```{r vizualizacija, echo=FALSE, warning=FALSE, message=FALSE}
+source("vizualizacija/vizualizacija.r", encoding = "UTF-8")
+```
+
+Najprej sem prikazala podatke o številu turistov na zemljevidu Slovenije.
+
+```{r zemljevid1, echo=FALSE}
+plot(ZEM_SLO)
+```
+
+Najmanj turistov je na Koroškem in v Zasavju, največ pa na Obalno-kraškem ter Gorenjskem. Predvsem prevaduje Obalno-kraška, najverjetneje zaradi morja, Gorenjsko pa verjetno turisti obiskujejo zaradi pokrajine in gorovja.
+
+Na zemljevidu Evrope pa sem prikazala podatke o prihodkih od turistov glede na državo v letu 2014.
+
+```{r zemljevid, echo=FALSE}
+plot(ZEM_EU)
+```
+
+Slovenija ima glede na druge evropske države manjše prihodke od turizma, vedar pa je tudi veliko manjša država od ostalih. Prevladuje Francija, ki ima nadpovprečno visoke prihodke, takoj za njo pa je Španija, kar je tudi pričakovano. Precej majhne prihodke pa imajo skandinavske in baltske države.
+
+\pagebreak
+
+#Analiza
+
+```{r analiza, echo=FALSE, warning=FALSE, message=FALSE}
+source("analiza/analiza.r", encoding = "UTF-8")
+```
+
+Za končno analizo podatkov sem se odločila, da bom razdelila regije v tri skupine, glede na odstopanja od povprečja števila turistov. Te podatke sem prikazala v naslednjem zemljevidu:
+
+```{r skupine, echo=FALSE}
+plot(ZEM_SKUPINE)
+```
+
+V tretji skupini so regije, ki imajo največje število turistov, kar smo videli že v prvem zemljevidu. Preverila sem tudi, katere regije so centeroidi in ugotovila da to Spodnjeposavska, Pomurska in Gorenjska.
+
+\pagebreak
+
+Potem sem se odločila, da bom pogledala koliko turistov je glede na leto in ali se število turistov povečuje ali ne. Podatke sem izrisala na graf ter dodala `geom_smooth`.
+
+```{r leta, echo=FALSE}
+plot(GRAF4)
+```
+
+Vidimo, da je število turistov padalo do leta 2010, kar je bila najverjetneje posledica krize. Od leta 2010 naprej pa narašča. 

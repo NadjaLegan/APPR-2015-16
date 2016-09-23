@@ -55,8 +55,8 @@ for (i in names(prenocitve[-5])) {
 prenocitve <- prenocitve[!is.na(prenocitve$Število),]
 
 #Spremenim vsa števila, ki so z ali - v NA 
-prenocitve[[i]][prenocitve[i] == "z"] <- NA
-prenocitve[[i]][prenocitve[i] == "-"] <- NA
+prenocitve[[5]][prenocitve[5] == "z"] <- NA
+prenocitve[[5]][prenocitve[5] == "-"] <- NA
 
 #Stolpec Število spremenim iz factor -> število in Leto iz število -> faktor
 
@@ -95,8 +95,8 @@ for (i in names(izdatki[-4])) {
 izdatki <- izdatki[!is.na(izdatki$Izdatek),]
 
 #Spremenim vsa števila, ki so N in - v NA 
-izdatki[[i]][izdatki[i] == "N"] <- NA
-izdatki[[i]][izdatki[i] == "-"] <- NA
+izdatki[[4]][izdatki[4] == "N"] <- NA
+izdatki[[4]][izdatki[4] == "-"] <- NA
 
 #V zadnjem stolpcu vzamem samo števila brez črk
 izdatki[[4]] <- as.character(izdatki[[4]])
@@ -179,7 +179,8 @@ GRAF3 <- ggplot(data = prenocitve %>%
   scale_y_continuous(labels=function(n){format(n, scientific = FALSE)})+
   theme_minimal() + 
   guides(fill=guide_legend(ncol=1, title=NULL)) + 
-  labs(title ="Število turistov glede na nastanitvene objekte", x="Nastanitveni objekt")
+  labs(title ="Število turistov glede na nastanitvene objekte", x = "")+
+  theme(axis.text.x = element_text(angle = 10, vjust = 0.5))
 
 
 

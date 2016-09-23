@@ -5,7 +5,7 @@ require(rvest)
 require(gsubfn)
 require(zoo)
 library(scales)
-
+library(mgcv)
 
 
 # Uvozimo funkcije za delo z datotekami XML.

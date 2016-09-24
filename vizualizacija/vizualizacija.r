@@ -36,7 +36,7 @@ ZEM_SLO <- ggplot() + geom_polygon(data = prenocitve %>%
 
 ZEM_SLO <- ZEM_SLO +
   geom_text(data = SLO %>% group_by(id, NAME_1) %>% summarise(x = mean(long), y = mean(lat)),
-            aes(x = x, y = y, label = NAME_1), color = "grey", size = 3.5)
+            aes(x = x, y = y, label = NAME_1), color = "grey", size = 2.5)
 
 #odstranim še oznake na x,y osi ter poimenovanje osi, ozadnje naredim belo
 
@@ -56,14 +56,17 @@ Drzave <- levels(prihodkiEU$Država)
 EU <- pretvori.zemljevid(zemljevid2)
 NOV <- EU %>% filter(name %in% Drzave)
 
+prihodkiEU$`Prihodek v letu 2014` <- prihodkiEU$`Prihodek v letu 2014`/1000
+prihodkiEU <- prihodkiEU %>% rename("Prihodek v 1000EUR" = `Prihodek v letu 2014`)
 
-ZEM_EU <- ggplot() + geom_polygon(data = prihodkiEU %>%
-                          right_join(NOV, by = c("Država" = "name")),
-                                   aes(x = long, y = lat, group = group, fill = `Prihodek v letu 2014`), 
-                                   color = "white") +
-  guides(fill = guide_colorbar(title = "Višina prihodkov")) +
+ZEM_EU <- ggplot() + geom_polygon(data = prihodkiEU %>% rename(name = Država) %>%
+                                    right_join(NOV, by = "name"),
+                                  aes(x = long, y = lat, group = group, fill = `Prihodek v 1000EUR`), 
+                                  color = "white") +
+  guides(fill = guide_colorbar(title = "Višina prihodkov v 1000EUR")) +
   ggtitle("Prihodki od turizma v nekaterih evropskih državah")+
   xlim(-25, 45) + ylim(35, 75)
+
 
 
 ZEM_EU <- ZEM_EU +
